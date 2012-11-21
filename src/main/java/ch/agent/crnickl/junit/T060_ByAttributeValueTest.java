@@ -102,13 +102,33 @@ public class T060_ByAttributeValueTest extends AbstractTest {
 		db.commit();
 	}
 	
-	public void test1() {
+	public void testGetByAttributeValue() {
 		try {
 			@SuppressWarnings("rawtypes")
 			Property ticker = db.getProperty("Ticker", true);
 			@SuppressWarnings("unchecked")
 			List<Chronicle> result = ticker.getChronicles(ticker.scan("SUN"), 42);
 			assertEquals(2, result.size());
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	public <T>void testDeleteAttributeValue() {
+		try {
+			UpdatableChronicle ussun2 = db.getChronicle("bt.sm.us.sunco", true).edit();
+			Attribute<String> ticker = (Attribute<String>)ussun2.getAttribute("Ticker", true).typeCheck(String.class);
+			Property<String> tickerProp = ticker.getProperty();
+			List<Chronicle> result = tickerProp.getChronicles(tickerProp.scan("SUN2"), 42);
+			assertEquals(1, result.size());
+			assertEquals("SUN2", ticker.get().toString());
+			ticker.set(null);
+			ussun2.setAttribute(ticker);
+			assertEquals(null, ticker.get());
+			ussun2.applyUpdates();
+			db.commit();
+			result = tickerProp.getChronicles(tickerProp.scan("SUN2"), 42);
+			assertEquals(0, result.size());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

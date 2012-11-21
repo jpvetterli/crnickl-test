@@ -1,15 +1,16 @@
 package ch.agent.crnickl.junit;
 
+import ch.agent.crnickl.api.Database;
+
 public class T001_SetUpTest extends AbstractTest {
 
-	@Override
-	protected void setUp() throws Exception {
-		getContext().getDatabase();
-	}
-
 	public void test_setUp() {
-		assertEquals("setup okay", "setup okay");
+		try {
+			Database db = getContext().getDatabase();
+			System.out.println(db.toString());
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
 	}
-
 	
 }
