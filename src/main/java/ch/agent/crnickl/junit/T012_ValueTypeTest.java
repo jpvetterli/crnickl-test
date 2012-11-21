@@ -24,6 +24,7 @@ import java.util.Collection;
 import ch.agent.crnickl.T2DBException;
 import ch.agent.crnickl.T2DBMsg;
 import ch.agent.crnickl.T2DBMsg.D;
+import ch.agent.crnickl.T2DBMsg.E;
 import ch.agent.crnickl.api.Database;
 import ch.agent.crnickl.api.Surrogate;
 import ch.agent.crnickl.api.UpdatableValueType;
@@ -90,7 +91,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 			db.getValueType(name);
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D10109);
+			assertException(e, E.E10109);
 		}
 	}
 	
@@ -110,7 +111,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 			helper_delete_type("foo");
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D10109);
+			assertException(e, E.E10109);
 		}
 	}
 	

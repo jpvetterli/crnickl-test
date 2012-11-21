@@ -21,7 +21,7 @@ package ch.agent.crnickl.junit;
 
 import java.util.Collection;
 
-import ch.agent.crnickl.T2DBMsg.D;
+import ch.agent.crnickl.T2DBMsg.E;
 import ch.agent.crnickl.api.Chronicle;
 import ch.agent.crnickl.api.Database;
 import ch.agent.crnickl.api.Schema;
@@ -394,7 +394,7 @@ public class T042_SeriesValuesTest extends AbstractTest {
 			if (isSparse())
 				fail(e.getMessage());
 			else
-				assertException(e, D.D50121, K.T5019);
+				assertException(e, E.E50121, K.T5019);
 		}
 	}
 	

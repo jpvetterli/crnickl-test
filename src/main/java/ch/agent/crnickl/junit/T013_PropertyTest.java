@@ -22,6 +22,7 @@ package ch.agent.crnickl.junit;
 import java.util.Collection;
 
 import ch.agent.crnickl.T2DBMsg.D;
+import ch.agent.crnickl.T2DBMsg.E;
 import ch.agent.crnickl.api.Database;
 import ch.agent.crnickl.api.Property;
 import ch.agent.crnickl.api.UpdatableProperty;
@@ -97,7 +98,7 @@ public class T013_PropertyTest extends AbstractTest {
 			p.applyUpdates();
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D20114);
+			assertException(e, E.E20114);
 		}
 	}
 	
@@ -182,7 +183,7 @@ public class T013_PropertyTest extends AbstractTest {
 			type.applyUpdates();
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D10145, D.D10149);
+			assertException(e, E.E10145, E.E10149);
 		}
 	}
 	

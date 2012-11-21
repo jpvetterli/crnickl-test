@@ -22,6 +22,7 @@ package ch.agent.crnickl.junit;
 import java.util.Collection;
 
 import ch.agent.crnickl.T2DBMsg.D;
+import ch.agent.crnickl.T2DBMsg.E;
 import ch.agent.crnickl.api.Attribute;
 import ch.agent.crnickl.api.AttributeDefinition;
 import ch.agent.crnickl.api.Chronicle;
@@ -118,7 +119,7 @@ public class T015_SchemaChronicleSeriesValueTest extends AbstractTest {
 			type.applyUpdates();
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D10145, D.D10149);
+			assertException(e, E.E10145, E.E10149);
 		}
 	}
 	
@@ -235,7 +236,7 @@ public class T015_SchemaChronicleSeriesValueTest extends AbstractTest {
 			type.applyUpdates();
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D10146, D.D10158);
+			assertException(e, E.E10146, E.E10158);
 		}
 	}
 	
@@ -246,7 +247,7 @@ public class T015_SchemaChronicleSeriesValueTest extends AbstractTest {
 			type.applyUpdates();
 			expectException();
 		} catch (Exception e) {
-			assertException(e, D.D10146, D.D10157);
+			assertException(e, E.E10146, E.E10157);
 		}
 	}
 
