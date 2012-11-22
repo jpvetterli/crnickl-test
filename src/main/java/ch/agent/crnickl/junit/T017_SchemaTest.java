@@ -21,11 +21,11 @@ package ch.agent.crnickl.junit;
 
 import java.util.Collection;
 
-import ch.agent.crnickl.T2DBException;
 import ch.agent.crnickl.T2DBMsg.D;
 import ch.agent.crnickl.api.Attribute;
 import ch.agent.crnickl.api.Chronicle;
 import ch.agent.crnickl.api.Database;
+import ch.agent.crnickl.api.Property;
 import ch.agent.crnickl.api.Schema;
 import ch.agent.crnickl.api.Series;
 import ch.agent.crnickl.api.UpdatableChronicle;
@@ -52,6 +52,7 @@ public class T017_SchemaTest extends AbstractTest {
 		vt1.applyUpdates();
 		UpdatableValueType<String> vt2 = db.createValueType("type2", true, "TEXT");
 		vt2.addValue(vt2.getScanner().scan("t2v2"), "type2 value2");
+		vt2.addValue(vt2.getScanner().scan(""), null); // empty value okay 
 		vt2.applyUpdates();
 		UpdatableValueType<String> vt3 = db.createValueType("type3", false, "TEXT");
 		vt3.applyUpdates();
@@ -67,7 +68,8 @@ public class T017_SchemaTest extends AbstractTest {
 	@Override
 	protected void lastTearDown() throws Exception {
 		Util.deleteChronicles(db, "bt.schema1achro", "bt.schema4chro", "bt.schema3chro");
-		Util.deleteSchema(db, "schema1f", "schema5", "schema4", "schema3", "schema2","schema1a");
+		Util.deleteSchema(db, "schema1f", "schema5", "schema4", "schema3", "schema2",
+				"schema1a", "schema2a", "schema2b");
 		if (DEBUG)
 			listSchemas("schema*");
 		Util.deleteProperties(db, "prop1", "prop2", "prop3");
@@ -95,7 +97,7 @@ public class T017_SchemaTest extends AbstractTest {
 			// name already used
 			schema.setSeriesName(2, "x25");
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30153);
 		}
 	}
@@ -110,7 +112,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.setAttributeDefault(1, "t1v1");
 			assertEquals("t1v1", schema.getAttributeDefinition(1, true).getValue().toString());
 			assertEquals("t1v1", schema.getAttributeDefinition("prop1", true).getValue().toString());
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 	}
@@ -124,7 +126,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.setAttributeProperty(1, db.getProperty("prop2", true));
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30133);
 		}
 	}
@@ -136,11 +138,52 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.addAttribute(1);
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30105, D.D30111);
 		}
 	}
 	
+	public void test_create_schema_failure_incomplete_attribute_no_value() {
+		try {
+			// attribute restricted, without "empty" value in the list
+			UpdatableSchema schema = db.createSchema("schema1", null);
+			schema.addAttribute(1);
+			schema.setAttributeProperty(1, db.getProperty("prop1", true));
+			schema.applyUpdates();
+			expectException();
+		} catch (Exception e) {
+			assertException(e, D.D30105, D.D30111);
+		}
+	}
+	
+	public void test_create_schema_with_empty_value() {
+		try {
+			// attribute restricted, with "empty" value in the list
+			UpdatableSchema schema = db.createSchema("schema2a", null);
+			schema.addAttribute(1);
+			Property<?> prop = db.getProperty("prop2", true);
+			schema.setAttributeProperty(1, prop);
+			schema.setAttributeDefault(1, prop.scan(""));
+			schema.applyUpdates();
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	public void test_create_schema_with_null_value() {
+		try {
+			// attribute restricted, with "empty" value in the list
+			// null string is not okay, use empty string
+			UpdatableSchema schema = db.createSchema("schema2b", null);
+			schema.addAttribute(1);
+			schema.setAttributeProperty(1, db.getProperty("prop2", true));
+			schema.applyUpdates();
+			expectException();
+		} catch (Exception e) {
+			assertException(e, D.D30105, D.D30111);
+		}
+	}
+
 	public void test_create_schema_failure_incomplete_series() {
 		try {
 			// adding an incomplete, non-erasing series should fail
@@ -148,7 +191,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.addSeries(1);
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30105, D.D30112);
 		}
 	}
@@ -161,7 +204,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.setSeriesType(1, "numeric");
 			schema.setSeriesTimeDomain(1, Day.DOMAIN);
 			schema.applyUpdates();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 	}
@@ -172,7 +215,7 @@ public class T017_SchemaTest extends AbstractTest {
 			UpdatableSchema schema = db.createSchema("schema1f", null);
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30108);
 		}
 	}
@@ -184,7 +227,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.addAttribute(1, 4);
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30105, D.D30113);
 		}
 	}
@@ -198,7 +241,7 @@ public class T017_SchemaTest extends AbstractTest {
 			// default value is not set, but null is not okay for prop2
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30105, D.D30113);
 		}
 	}
@@ -210,7 +253,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.setAttributeProperty(1, 4, db.getProperty("prop2", true));
 			schema.setAttributeDefault(1, 4, "t2v2");
 			schema.applyUpdates();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 	}
@@ -224,7 +267,7 @@ public class T017_SchemaTest extends AbstractTest {
 			schema.addAttribute(1);
 			schema.applyUpdates();
 			expectException();
-		} catch (T2DBException e) {
+		} catch (Exception e) {
 			assertException(e, D.D30127);
 		}
 	}
