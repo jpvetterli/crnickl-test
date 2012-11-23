@@ -67,7 +67,7 @@ public class T017_SchemaTest extends AbstractTest {
 	
 	@Override
 	protected void lastTearDown() throws Exception {
-		Util.deleteChronicles(db, "bt.schema1achro", "bt.schema4chro", "bt.schema3chro");
+		Util.deleteChronicles(db, "bt.schema1achro", "bt.schema3chro", "bt.schema4chro");
 		Util.deleteSchema(db, "schema1f", "schema5", "schema4", "schema3", "schema2",
 				"schema1a", "schema2a", "schema2b");
 		if (DEBUG)
@@ -334,6 +334,20 @@ public class T017_SchemaTest extends AbstractTest {
 			Schema schema = db.getSchemas("schema5").iterator().next();
 			UpdatableChronicle chro = db.getTopChronicle().edit().createChronicle("schema5chro", false, "test chronicle", null, schema);
 			chro.applyUpdates();
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	public void test_create_sub_chronicle_with_schema_inherited() {
+		try {
+			Schema schema = db.getSchemas("schema5").iterator().next();
+			UpdatableChronicle chro = db.getChronicle("bt.schema5chro", true).edit();
+			assertEquals(schema, chro.getSchema(false));
+			chro.createChronicle("sub", false, "sub test", null, null).applyUpdates();
+			Chronicle sub = db.getChronicle("bt.schema5chro.sub", true);
+			assertEquals(schema, sub.getSchema(true));
+			assertEquals(null, sub.getSchema(false));
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
