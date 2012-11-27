@@ -67,7 +67,8 @@ public class T017_SchemaTest extends AbstractTest {
 	
 	@Override
 	protected void lastTearDown() throws Exception {
-		Util.deleteChronicles(db, "bt.schema1achro", "bt.schema3chro", "bt.schema4chro");
+		Util.deleteChronicles(db, "bt.schema1achro", "bt.schema1achro2", 
+				"bt.schema3chro", "bt.schema4chro");
 		Util.deleteSchema(db, "schema1f", "schema5", "schema4", "schema3", "schema2",
 				"schema1a", "schema2a", "schema2b");
 		if (DEBUG)
@@ -728,9 +729,10 @@ public class T017_SchemaTest extends AbstractTest {
 			schema3.eraseAttribute(1);
 			schema3.applyUpdates();
 			assertEquals(null, schema3.getAttributeDefinition("prop1", false));
-			expectException();
+			// value still here because it's the default value, which is not in the chronicle
+			assertEquals("t1v2", chro.getAttribute("prop1", true).get().toString());
 		} catch (Exception e) {
-			assertException(e, null, D.D30146);
+			fail(e.getMessage());
 		}
 	}
 	
@@ -744,5 +746,29 @@ public class T017_SchemaTest extends AbstractTest {
 			assertException(e, D.D30140);
 		}
 	}
-	
+
+	public void test_set_chronicle_attribute_with_value_same_as_default() {
+		try {
+			Schema schema1 = db.getSchemas("schema1a").iterator().next();
+			UpdatableChronicle chro = db.getTopChronicle().edit().createChronicle("schema1achro2", false, "test chronicle", null, schema1);
+			chro.applyUpdates();
+			// use the attribute
+			Attribute<?> a = chro.getAttribute("prop1", true);
+			assertEquals("t1v1", schema1.getAttributeDefinition("prop1", false).getValue().toString());
+			a.scan("t1v1");
+			chro.setAttribute(a);
+			chro.applyUpdates();
+			assertEquals("t1v1", chro.getAttribute("prop1", true).get().toString());
+			// now change the default
+			UpdatableSchema uschema1 = schema1.edit();
+			uschema1.setAttributeDefault(1, "t1v2");
+			uschema1.applyUpdates();
+			// expect that the attribute value has changed because t1v1 above was not set, being the default 
+			Chronicle c = db.getChronicle("bt.schema1achro2", true);
+			assertEquals("t1v1", c.getAttribute("prop1", true).get().toString());
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+
 }
