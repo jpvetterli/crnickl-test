@@ -23,7 +23,6 @@ public class Util {
 	 * series deleted. The method does not commit.
 	 * 
 	 * @param chronicle
-	 * @return
 	 * @throws KeyedException
 	 */
 	public static void deleteChronicleCollection(Chronicle chronicle) throws KeyedException {

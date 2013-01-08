@@ -42,7 +42,7 @@ public class AbstractTest extends TestCase {
 	}
 
 	/**
-	 * This method is called by {@link setUp} before the first test. 
+	 * This method is called by <code>setUp()</code> before the first test. 
 	 * So if you override <code>setUp</code>, you must call super.
 	 * By default the method does nothing.
 	 * 
@@ -52,7 +52,7 @@ public class AbstractTest extends TestCase {
 	}
 	
 	/**
-	 * This method is called by {@link tearDown} after the last test. 
+	 * This method is called by <code>tearDown()</code> after the last test. 
 	 * So if you override <code>tearDown</code>, you must call super.
 	 * By default the method does nothing.
 	 * 
@@ -71,7 +71,7 @@ public class AbstractTest extends TestCase {
 	/**
 	 * Verify an exception and its cause chain against a series of keys. 
 	 * Verification fails unless the exception is an instance of
-	 * {@link KeyedException} and its key matches.
+	 * <code>KeyedException</code> and its key matches.
 	 * A null key in the argument list skips a level in the cause chain.
 	 * For example the following line asserts that the cause
 	 * of exception e has a key equal to "foo":
