@@ -1,0 +1,63 @@
+<h1>crnickl-test : common test code for CrNiCKL drivers </h1>
+
+<pre><code>Copyright 2012-2013 Hauser Olsson GmbH.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+
+<hr />
+
+<p>This provides common test code for tests included in CrNiCKL
+drivers. Currently, drivers are available for JDBC (crnickl-jdbc)
+and MongoDB (crnickl-mongodb). Note that CrNiCKL itself (crnickl) 
+cannot be tested without using a driver.</p>
+
+<h2>For Maven users</h2>
+
+<p>The software is available from the <a 
+href="http://repo.maven.apache.org/maven2/ch/agent/crnickl/">Maven central 
+repository</a>. To use version x.y.z, insert the following dependency into your 
+<code>pom.xml</code> file:</p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;ch.agent&lt;/groupId&gt;
+  &lt;artifactId&gt;crnickl-test&lt;/artifactId&gt;
+  &lt;version&gt;x.y.z&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h2>Building the software</h2>
+
+<p>The recommended way is to use <a href="http://git-scm.com">git</a> for accessing the
+source and <a href="http://maven.apache.org/">maven</a> for building. The procedure 
+is easy, as maven takes care of locating and downloading dependencies:</p>
+
+<pre><code>$ git clone https://github.com/jpvetterli/crnickl-test.git
+$ cd crnickl-test
+$ mvn install
+</code></pre>
+
+<h2>Browsing the source code</h2>
+
+<p>The source is available on GitHub at 
+<a href="http://github.com/jpvetterli/crnickl-test.git">http://github.com/jpvetterli/crnickl-test.git</a>.</p>
+
+<h2>Finding more information</h2>
+
+<p>More information on CrNiCKL is available at 
+<a href="http://agent.ch/timeseries/crnickl/">http://agent.ch/timeseries/crnickl/</a>.</p>
+
+<p><small>Updated: 2013-01-08/jpv</small></p>
+
+<p><link rel="stylesheet" type="text/css" href="README.css"/></p>
