@@ -22,7 +22,8 @@
   <artifactId>crnickl-test</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
-  <name>Abstract unit tests for the CrNiCKL database software</name>
+  <name>CrNiCKL test base</name>
+  <description>Abstract unit tests for the CrNiCKL database software.</description>
   <url>http://agent.ch/timeseries/crnickl/</url>
 
   <licenses>
