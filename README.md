@@ -27,7 +27,7 @@ For Maven users
 
 The software is available from the <a 
 href="http://repo.maven.apache.org/maven2/ch/agent/crnickl-test/">Maven central 
-repository</a>. To use version x.y.z, insert the following dependency into your 
+repository</a>. To use version `x.y.z`, insert the following dependency into your 
 `pom.xml` file:
 
     <dependency>
@@ -59,8 +59,7 @@ Finding more information
 
 More information on CrNiCKL is available at 
 <http://agent.ch/timeseries/crnickl/>.
-
-<small>Updated: 2013-01-08/jpv</small>
+This README was updated on 2013-04-30 (jpv).
 
 <link rel="stylesheet" type="text/css" href="README.css"/>
 

@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ch.agent</groupId>
   <artifactId>crnickl-test</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
   <packaging>jar</packaging>
   <name>CrNiCKL test base</name>
   <description>Abstract unit tests for the CrNiCKL database software.</description>
@@ -134,14 +134,14 @@
     <dependency>
       <groupId>ch.agent</groupId>
       <artifactId>crnickl</artifactId>
-      <version>1.2.0</version>
+      <version>1.2.1</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.11</version>
       <scope>compile</scope>
     </dependency>
 
