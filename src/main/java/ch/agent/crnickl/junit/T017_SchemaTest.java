@@ -2,6 +2,9 @@ package ch.agent.crnickl.junit;
 
 import java.util.Collection;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 import ch.agent.crnickl.T2DBMsg.D;
 import ch.agent.crnickl.api.Attribute;
 import ch.agent.crnickl.api.Chronicle;
@@ -17,6 +20,7 @@ import ch.agent.t2.time.DateTime;
 import ch.agent.t2.time.Day;
 import ch.agent.t2.time.Workday;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T017_SchemaTest extends AbstractTest {
 
 	private static Database db;
@@ -70,7 +74,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_failure_series_name_used_twice () {
+	public void test_010_create_schema_failure_series_name_used_twice () {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1", null);
 			schema.addSeries(1);
@@ -84,7 +88,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_ok_but_not_applied() {
+	public void test_020_create_schema_ok_but_not_applied() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1", null);
 			schema.addSeries(1);
@@ -98,7 +102,7 @@ public class T017_SchemaTest extends AbstractTest {
 			fail(e.getMessage());
 		}
 	}
-	public void test_create_schema_failure_illegal_value_on_property_modification() {
+	public void test_030_create_schema_failure_illegal_value_on_property_modification() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1", null);
 			schema.addAttribute(1);
@@ -113,7 +117,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_create_schema_failure_incomplete_attribute() {
+	public void test_040_create_schema_failure_incomplete_attribute() {
 		try {
 			// adding an incomplete, non-erasing attribute should fail
 			UpdatableSchema schema = db.createSchema("schema1", null);
@@ -125,7 +129,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_failure_incomplete_attribute_no_value() {
+	public void test_050_create_schema_failure_incomplete_attribute_no_value() {
 		try {
 			// attribute restricted, without "empty" value in the list
 			UpdatableSchema schema = db.createSchema("schema1", null);
@@ -138,7 +142,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_with_empty_value() {
+	public void test_060_create_schema_with_empty_value() {
 		try {
 			// attribute restricted, with "empty" value in the list
 			UpdatableSchema schema = db.createSchema("schema2a", null);
@@ -152,7 +156,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_with_null_value() {
+	public void test_070_create_schema_with_null_value() {
 		try {
 			// attribute restricted, with "empty" value in the list
 			// null string is not okay, use empty string
@@ -166,7 +170,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_create_schema_failure_incomplete_series() {
+	public void test_080_create_schema_failure_incomplete_series() {
 		try {
 			// adding an incomplete, non-erasing series should fail
 			UpdatableSchema schema = db.createSchema("schema1", null);
@@ -178,7 +182,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_schema1f() {
+	public void test_090_create_schema_schema1f() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1f", null);
 			schema.addSeries(1);
@@ -191,7 +195,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_existing_schema_fails() {
+	public void test_100_create_existing_schema_fails() {
 		try {
 			// adding an incomplete, non-erasing series attribute should fail
 			UpdatableSchema schema = db.createSchema("schema1f", null);
@@ -202,7 +206,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_add_incomplete_series_attribute() {
+	public void test_110_add_incomplete_series_attribute() {
 		try {
 			// adding an incomplete, non-erasing series attribute should fail
 			UpdatableSchema schema = db.getUpdatableSchemas("schema1f").iterator().next();
@@ -214,7 +218,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_add_incomplete_series_attribute_value_required() {
+	public void test_120_add_incomplete_series_attribute_value_required() {
 		try {
 			// adding an incomplete, non-erasing series attribute should fail
 			UpdatableSchema schema = db.getUpdatableSchemas("schema1f").iterator().next();
@@ -228,7 +232,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_add_series_attribute() {
+	public void test_130_add_series_attribute() {
 		try {
 			UpdatableSchema schema = db.getUpdatableSchemas("schema1f").iterator().next();
 			schema.addAttribute(1, 4);
@@ -240,7 +244,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_create_schema_failure_same_attribute_nr() {
+	public void test_140_create_schema_failure_same_attribute_nr() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1", null);
 			schema.addAttribute(1);
@@ -254,7 +258,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_failure_attribute_incomplete_after_edit() {
+	public void test_150_create_schema_failure_attribute_incomplete_after_edit() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1", null);
 			Collection<Schema> ss = db.getSchemas("schema1");
@@ -272,7 +276,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema_failure_attribute_property_duplicate() {
+	public void test_160_create_schema_failure_attribute_property_duplicate() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema1", null);
 			schema.addAttribute(1);
@@ -289,7 +293,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_empty_schema() {
+	public void test_170_create_empty_schema() {
 		try {
 			UpdatableSchema schema = db.createSchema("schema5", null);
 			schema.applyUpdates();
@@ -298,7 +302,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_chronicle_with_updatable_schema_fails() {
+	public void test_180_create_chronicle_with_updatable_schema_fails() {
 		try {
 			// creating a chronicle with an updatable schema should be impossible
 			UpdatableSchema schema = db.getUpdatableSchemas("schema5").iterator().next();
@@ -310,7 +314,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_chronicle_with_empty_schema_okay() {
+	public void test_190_create_chronicle_with_empty_schema_okay() {
 		try {
 			// creating a chronicle with an empty schema should be possible
 			Schema schema = db.getSchemas("schema5").iterator().next();
@@ -321,7 +325,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_sub_chronicle_with_schema_inherited() {
+	public void test_200_create_sub_chronicle_with_schema_inherited() {
 		try {
 			Schema schema = db.getSchemas("schema5").iterator().next();
 			UpdatableChronicle chro = db.getChronicle("bt.schema5chro", true).edit();
@@ -335,7 +339,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_chronicle() {
+	public void test_210_delete_chronicle() {
 		try {
 			/*
 			 * There was a bug allowing to create chronicle with incomplete
@@ -348,7 +352,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_create_schema1_and_schema2() {
+	public void test_220_create_schema1_and_schema2() {
 		try {
 			UpdatableSchema schema1 = db.createSchema("schema1", null);
 			schema1.addAttribute(1);
@@ -365,7 +369,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_define_series_in_schema1() {
+	public void test_230_define_series_in_schema1() {
 		try {
 			UpdatableSchema schema1 = db.getSchemas("schema1").iterator().next().edit();
 			Schema schema2 = db.getSchemas("schema2").iterator().next();
@@ -386,7 +390,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_edit_and_add_series_in_schema1() {
+	public void test_240_edit_and_add_series_in_schema1() {
 		try {
 			UpdatableSchema schema1 = db.getSchemas("schema1").iterator().next().edit();
 			schema1.setSeriesName(1, "fou");
@@ -406,7 +410,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_rename_schema1_schema1a() {
+	public void test_250_rename_schema1_schema1a() {
 		try {
 			UpdatableSchema schema1 = db.getSchemas("schema1").iterator().next().edit();
 			schema1.setName("schema1a");
@@ -417,7 +421,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_schema3_for_base_of_schema1a() {
+	public void test_260_create_schema3_for_base_of_schema1a() {
 		try {
 			UpdatableSchema schema3 = db.createSchema("schema3", null);
 			schema3.applyUpdates();
@@ -430,7 +434,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_reset_base_of_schema1a() {
+	public void test_270_reset_base_of_schema1a() {
 		try {
 			UpdatableSchema schema1 = db.getSchemas("schema1a").iterator().next().edit();
 			schema1.setBase(null);
@@ -441,7 +445,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_cannot_set_base_to_schema_in_construction() {
+	public void test_280_cannot_set_base_to_schema_in_construction() {
 		try {
 			UpdatableSchema schema4 = db.createSchema("schema4", null);
 			schema4.addAttribute(1);
@@ -456,7 +460,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_create_schema4_based_on_schema1a_and_override_attribute() {
+	public void test_290_create_schema4_based_on_schema1a_and_override_attribute() {
 		UpdatableSchema schema1 = null;
 		try {
 			UpdatableSchema schema4 = db.createSchema("schema4", "schema1a");
@@ -478,7 +482,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_add_series_to_schema4_but_dont_apply() {
+	public void test_300_add_series_to_schema4_but_dont_apply() {
 		try {
 			UpdatableSchema schema4 = db.getUpdatableSchemas("schema4").iterator().next();
 			Schema s = schema4.resolve();
@@ -490,7 +494,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_set_schema2_as_base_of_schema3() {
+	public void test_310_set_schema2_as_base_of_schema3() {
 		// related to test37
 		try {
 			UpdatableSchema schema2 = db.getUpdatableSchemas("schema2").iterator().next();
@@ -502,7 +506,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_delete_non_existing_series() {
+	public void test_320_delete_non_existing_series() {
 		try {
 			UpdatableSchema schema4 = db.getUpdatableSchemas("schema4").iterator().next();
 			schema4.deleteSeries(1);
@@ -512,7 +516,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_series_in_actual_use_fails() {
+	public void test_330_delete_series_in_actual_use_fails() {
 		try {
 			Schema schema = db.getSchemas("schema1a").iterator().next();
 			UpdatableChronicle chro = db.getTopChronicle().edit().createChronicle("schema1achro", false, "test chronicle", null, schema);
@@ -530,7 +534,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_rename_series_in_actual_use_okay() {
+	public void test_340_rename_series_in_actual_use_okay() {
 		try {
 			Schema schema = db.getSchemas("schema1a").iterator().next();
 			Series<Double> ser = db.getSeries("bt.schema1achro.fou", true);
@@ -547,7 +551,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_modify_time_domain_of_series_fails() {
+	public void test_350_modify_time_domain_of_series_fails() {
 		try {
 			Schema schema = db.getSchemas("schema1a").iterator().next();
 			Series<Double> ser = db.getSeries("bt.schema1achro.fooo", true);
@@ -562,7 +566,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_update_attribute_value_okay() {
+	public void test_360_update_attribute_value_okay() {
 		try {
 			Schema schema = db.getSchemas("schema1a").iterator().next();
 			Series<Double> ser = db.getSeries("bt.schema1achro.fooo", true);
@@ -581,7 +585,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_series_attribute_overrides_chronicle_attribute() {
+	public void test_370_series_attribute_overrides_chronicle_attribute() {
 		try {
 			Schema schema = db.getSchemas("schema1a").iterator().next();
 			UpdatableSchema sch1 = schema.edit();
@@ -600,7 +604,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_delete_series_in_use_via_base_schema() {
+	public void test_380_delete_series_in_use_via_base_schema() {
 		try {
 			Schema schema = db.getSchemas("schema4").iterator().next();
 			UpdatableChronicle chro = db.getTopChronicle().edit().createChronicle("schema4chro", false, "test chronicle", null, schema);
@@ -617,7 +621,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_and_add_attribute() {
+	public void test_390_delete_and_add_attribute() {
 		try {
 			UpdatableSchema schema = db.getUpdatableSchemas("schema1a").iterator().next();
 			schema.deleteAttribute(1);
@@ -634,7 +638,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_chronicle_attribute_with_actual_values() {
+	public void test_400_delete_chronicle_attribute_with_actual_values() {
 		try {
 			UpdatableSchema schema = db.getUpdatableSchemas("schema1a").iterator().next();
 
@@ -655,7 +659,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_chronicle_attribute_via_base_with_actual_values() {
+	public void test_410_delete_chronicle_attribute_via_base_with_actual_values() {
 		try {
 			Schema schema3 = db.getSchemas("schema3").iterator().next();
 			UpdatableChronicle chro = db.getTopChronicle().edit().createChronicle("schema3chro", false, "test chronicle", null, schema3);
@@ -677,7 +681,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_erase_attribute_in_use() {
+	public void test_420_erase_attribute_in_use() {
 		try {
 			// erase attribute 
 			Chronicle chro = db.getChronicle("bt.schema3chro", true);
@@ -693,7 +697,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_erase_attribute_still_in_use() {
+	public void test_430_erase_attribute_still_in_use() {
 		try {
 			// erase attribute 
 			UpdatableChronicle chro = db.getChronicle("bt.schema3chro", true).edit();
@@ -717,7 +721,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_schema_in_use() {
+	public void test_440_delete_schema_in_use() {
 		try {
 			UpdatableSchema schema1 = db.getSchemas("schema1a").iterator().next().edit();
 			schema1.destroy();
@@ -728,7 +732,7 @@ public class T017_SchemaTest extends AbstractTest {
 		}
 	}
 
-	public void test_set_chronicle_attribute_with_value_same_as_default() {
+	public void test_450_set_chronicle_attribute_with_value_same_as_default() {
 		try {
 			Schema schema1 = db.getSchemas("schema1a").iterator().next();
 			UpdatableChronicle chro = db.getTopChronicle().edit().createChronicle("schema1achro2", false, "test chronicle", null, schema1);

@@ -1,5 +1,8 @@
 package ch.agent.crnickl.junit;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 import ch.agent.crnickl.T2DBMsg.D;
 import ch.agent.crnickl.api.Chronicle;
 import ch.agent.crnickl.api.Database;
@@ -13,6 +16,7 @@ import ch.agent.t2.time.Day;
 import ch.agent.t2.time.Range;
 import ch.agent.t2.time.TimeIndex;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T040_SeriesTest extends AbstractTest {
 
 	private static Boolean DUMP = false;

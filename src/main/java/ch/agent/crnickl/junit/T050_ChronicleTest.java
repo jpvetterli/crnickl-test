@@ -1,11 +1,15 @@
 package ch.agent.crnickl.junit;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 import ch.agent.crnickl.T2DBMsg.D;
 import ch.agent.crnickl.api.Attribute;
 import ch.agent.crnickl.api.Chronicle;
 import ch.agent.crnickl.api.Database;
 import ch.agent.crnickl.api.UpdatableChronicle;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T050_ChronicleTest extends AbstractTest {
 
 	private static Database db;
@@ -32,7 +36,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		Util.deleteChronicles(db, FULLNAME, FULLNAME_UPDATED);
 	}
 
-	public void test1() {
+	public void test_010() {
 		try {
 			UpdatableChronicle testEntity = ((UpdatableChronicle)db.getTopChronicle()).createChronicle(SIMPLENAME, false, "test", null, null);
 			testEntity.applyUpdates();
@@ -42,7 +46,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void test2() {
+	public void test_020() {
 		try {
 			UpdatableChronicle testEntity = ((UpdatableChronicle)db.getTopChronicle()).createChronicle(SIMPLENAME, false, "test", null, null);
 			testEntity.applyUpdates();
@@ -52,7 +56,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void test3() {
+	public void test_030() {
 		try {
 			UpdatableChronicle testEntity = db.getChronicle(FULLNAME, true).edit();
 			testEntity.destroy();
@@ -63,7 +67,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void test4() {
+	public void test_040() {
 		// original bug: NPE when getting non-existing attribute of entity in construction 
 		try {
 			UpdatableChronicle e = db.getTopChronicle().edit().createChronicle(SIMPLENAME, false, "junit test 001", null, null);
@@ -76,7 +80,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void test5() {
+	public void test_050() {
 		try {
 			UpdatableChronicle e = db.getTopChronicle().edit().createChronicle(SIMPLENAME, false, "junit test 001", null, null);
 			e.applyUpdates();
@@ -89,7 +93,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void test6() {
+	public void test_060() {
 		// original bug: NPE when creating non-existing attribute of entity in construction 
 		try {
 			UpdatableChronicle e = db.getChronicle(FULLNAME, true).edit();
@@ -100,7 +104,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void testUpdateChronicleName() {
+	public void test_070_UpdateChronicleName() {
 		try {
 			UpdatableChronicle chron = db.getChronicle(FULLNAME, true).edit();
 			chron.setName(SIMPLENAME_UPDATED);
@@ -111,7 +115,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void testUpdateChronicleNameToNull() {
+	public void test_080_UpdateChronicleNameToNull() {
 		try {
 			UpdatableChronicle chron = db.getChronicle(FULLNAME_UPDATED, true).edit();
 			chron.setName(null);
@@ -122,7 +126,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void testUpdateChronicleNameToIllegal() {
+	public void test_090_UpdateChronicleNameToIllegal() {
 		try {
 			UpdatableChronicle chron = db.getChronicle(FULLNAME_UPDATED, true).edit();
 			chron.setName("!@#");
@@ -134,7 +138,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void testUpdateChronicleNameToEmpty() {
+	public void test_100_UpdateChronicleNameToEmpty() {
 		try {
 			UpdatableChronicle chron = db.getChronicle(FULLNAME_UPDATED, true).edit();
 			chron.setName("");
@@ -146,7 +150,7 @@ public class T050_ChronicleTest extends AbstractTest {
 		}
 	}
 	
-	public void testUpdateChronicleDescription() {
+	public void test_110_UpdateChronicleDescription() {
 		try {
 			UpdatableChronicle chron = db.getChronicle(FULLNAME_UPDATED, true).edit();
 			chron.setDescription("anything");

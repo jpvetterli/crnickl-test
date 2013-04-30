@@ -2,6 +2,9 @@ package ch.agent.crnickl.junit;
 
 import java.util.Collection;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 import ch.agent.crnickl.T2DBMsg.D;
 import ch.agent.crnickl.T2DBMsg.E;
 import ch.agent.crnickl.api.Database;
@@ -14,6 +17,7 @@ import ch.agent.crnickl.api.ValueType;
  * These tests must be executed together. They build upon each other. 
  * The sequence is important. The last tests cleanup.
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T013_PropertyTest extends AbstractTest {
 
 	private Database db;
@@ -24,7 +28,7 @@ public class T013_PropertyTest extends AbstractTest {
 		db = getContext().getDatabase();
 	}
 
-	public void test_create_type() {
+	public void test_010_create_type() {
 		try {
 			UpdatableValueType<String> vt = db.createValueType("foo type", true, "TEXT");
 			vt.addValue(vt.getScanner().scan("bar"), "it's bar");
@@ -37,7 +41,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_another_type() {
+	public void test_020_create_another_type() {
 		try {
 			UpdatableValueType<String> vt = db.createValueType("bar type", true, "TEXT");
 			vt.addValue(vt.getScanner().scan("foo"), "it's foo");
@@ -50,7 +54,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_property() {
+	public void test_030_create_property() {
 		try {
 			ValueType<String> type = db.getValueType("foo type");
 			UpdatableProperty<String> p = db.createProperty("foo property", type, true);
@@ -61,7 +65,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_another_property() {
+	public void test_040_create_another_property() {
 		try {
 			ValueType<String> type = db.getValueType("bar type");
 			UpdatableProperty<String> p = db.createProperty("bar property", type, true);
@@ -72,7 +76,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_cannot_create_existing_property() {
+	public void test_050_cannot_create_existing_property() {
 		try {
 			ValueType<String> type = db.getValueType("bar type");
 			UpdatableProperty<String> p = db.createProperty("bar property", type, true);
@@ -83,7 +87,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_property_detects_bad_value() {
+	public void test_060_property_detects_bad_value() {
 		try {
 			UpdatableProperty<String> p = db.getProperty("foo property", true).typeCheck(String.class).edit();
 			p.scan("baz");
@@ -93,7 +97,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_property_accepts_good_value() {
+	public void test_070_property_accepts_good_value() {
 		try {
 			UpdatableProperty<String> p = db.getProperty("foo property", true).typeCheck(String.class).edit();
 			p.scan("baf");
@@ -102,7 +106,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 
-	public void test_get_properties_by_pattern() {
+	public void test_080_get_properties_by_pattern() {
 		try {
 			Collection<Property<?>> props = db.getProperties("*prop*");
 			if (DUMP) {
@@ -123,7 +127,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_get_all_properties() {
+	public void test_090_get_all_properties() {
 		try {
 			Collection<Property<?>> props = db.getProperties(null);
 			if (DUMP) {
@@ -144,7 +148,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_rename_property() {
+	public void test_100_rename_property() {
 		try {
 			UpdatableProperty<String> p = db.getProperty("foo property", true).typeCheck(String.class).edit();
 			p.setName("moo property");
@@ -157,7 +161,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_cannot_delete_value_type_in_use() {
+	public void test_110_cannot_delete_value_type_in_use() {
 		try {
 			UpdatableValueType<String> type = db.getValueType("foo type").typeCheck(String.class).edit();
 			type.destroy();
@@ -168,7 +172,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_property_and_type() {
+	public void test_120_delete_property_and_type() {
 		try {
 			UpdatableProperty<String> p = db.getProperty("moo property", true).typeCheck(String.class).edit();
 			UpdatableValueType<String> vt = p.getValueType().edit();
@@ -183,7 +187,7 @@ public class T013_PropertyTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_other_property_and_type() {
+	public void test_130_delete_other_property_and_type() {
 		try {
 			UpdatableProperty<String> p = db.getProperty("bar property", true).typeCheck(String.class).edit();
 			UpdatableValueType<String> vt = p.getValueType().edit();

@@ -2,6 +2,9 @@ package ch.agent.crnickl.junit;
 
 import java.util.Collection;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 import ch.agent.crnickl.T2DBMsg.D;
 import ch.agent.crnickl.T2DBMsg.E;
 import ch.agent.crnickl.api.Attribute;
@@ -17,6 +20,7 @@ import ch.agent.crnickl.api.UpdatableValueType;
 import ch.agent.crnickl.api.ValueType;
 import ch.agent.t2.time.Day;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T015_SchemaChronicleSeriesValueTest extends AbstractTest {
 
 	private static Database db;

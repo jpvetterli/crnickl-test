@@ -2,6 +2,9 @@ package ch.agent.crnickl.junit;
 
 import java.util.Collection;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 import ch.agent.crnickl.T2DBException;
 import ch.agent.crnickl.T2DBMsg;
 import ch.agent.crnickl.T2DBMsg.D;
@@ -16,6 +19,7 @@ import ch.agent.crnickl.api.ValueType;
  * These tests must be executed together. They build upon each other. 
  * The sequence is important. The last tests cleanup.
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T012_ValueTypeTest extends AbstractTest {
 
 	private Database db;
@@ -25,7 +29,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		db = getContext().getDatabase();
 	}
 
-	public void test_create_type() {
+	public void test_010_create_type() {
 		try {
 			UpdatableValueType<String> vt = db.createValueType("foo-type", true, "TEXT");
 			vt.addValue(vt.getScanner().scan("bar"), "it's bar");
@@ -38,7 +42,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_create_another_type() {
+	public void test_020_create_another_type() {
 		try {
 			UpdatableValueType<String> vt = db.createValueType("bar-type", false, "TEXT");
 			vt.applyUpdates();
@@ -50,7 +54,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_rename_type() {
+	public void test_030_rename_type() {
 		try {
 			ValueType<String> vt = db.getValueType("foo-type");
 			Surrogate s = vt.getSurrogate();
@@ -76,7 +80,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_types_by_pattern() {
+	public void test_040_delete_types_by_pattern() {
 		try {
 			Collection<ValueType<?>> vts = db.getValueTypes("*-type");
 			for (ValueType<?> vt : vts) {
@@ -87,7 +91,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_non_existing_type() {
+	public void test_050_delete_non_existing_type() {
 		try {
 			helper_delete_type("foo");
 			expectException();
@@ -96,7 +100,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_recreate_type() {
+	public void test_060_recreate_type() {
 		try {
 			UpdatableValueType<String> vt = db.createValueType("foo", true, "TEXT");
 			vt.applyUpdates();
@@ -106,7 +110,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 
-	public void test_type_add_value() {
+	public void test_070_type_add_value() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -118,7 +122,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_add_more_values() {
+	public void test_080_add_more_values() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -131,7 +135,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_get_value_and_description() {
+	public void test_090_get_value_and_description() {
 		try {
 			ValueType<String> vt = db.getValueType("foo");
 			Collection<String> values = vt.getValues(null);
@@ -141,7 +145,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 
-	public void test_get_all_values() {
+	public void test_100_get_all_values() {
 		try {
 			ValueType<String> vt = db.getValueType("foo").typeCheck(String.class).edit();
 			assertTrue(vt.getValueDescriptions().get("foo1").equals("Foo 1"));
@@ -151,7 +155,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_update_type_no_update() {
+	public void test_110_update_type_no_update() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -161,7 +165,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_update_existing_value() {
+	public void test_120_update_existing_value() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -173,7 +177,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_update_non_existing_value() {
+	public void test_130_update_non_existing_value() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -185,7 +189,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_non_existing_value() {
+	public void test_140_delete_non_existing_value() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -197,7 +201,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 	
-	public void test_delete_existing_value() {
+	public void test_150_delete_existing_value() {
 		try {
 			UpdatableValueType<String> vt = 
 					db.getValueType("foo").typeCheck(String.class).edit();
@@ -209,7 +213,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		}
 	}
 
-	public void test_delete_existing_type() {
+	public void test_160_delete_existing_type() {
 		try {
 			helper_delete_type("foo");
 		} catch (Exception e) {
@@ -271,7 +275,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 		
 	}
 
-	public void test_create_custom_type() {
+	public void test_170_create_custom_type() {
 		try {
 			UpdatableValueType<Foo> vt = db.createValueType("foo", true, FooScanner.class.getName());
 			vt.addValue(vt.getScanner().scan("bar:1"), "it's bar:1");
@@ -286,7 +290,7 @@ public class T012_ValueTypeTest extends AbstractTest {
 			fail(e.getMessage());
 		}
 	}
-	public void test_delete_custom_type() {
+	public void test_180_delete_custom_type() {
 		try {
 			UpdatableValueType<Foo> vt = db.getValueType("foo").typeCheck(Foo.class).edit();
 			vt.destroy();
