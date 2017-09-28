@@ -22,8 +22,8 @@ public class Util {
 	 * method returns an array with the number of entities and the number of
 	 * series deleted. The method does not commit.
 	 * 
-	 * @param chronicle
-	 * @throws KeyedException
+	 * @param chronicle a chronicle
+	 * @throws KeyedException on failure
 	 */
 	public static void deleteChronicleCollection(Chronicle chronicle) throws KeyedException {
 		deleteChronicle(chronicle, true);

@@ -17,9 +17,9 @@ import ch.agent.t2.time.Range;
 import ch.agent.t2.time.TimeDomain;
 import ch.agent.t2.time.TimeIndex;
 import ch.agent.t2.timeseries.Observation;
+import ch.agent.t2.timeseries.RegularTimeSeries;
 import ch.agent.t2.timeseries.TimeAddressable;
 import ch.agent.t2.timeseries.TimeIndexable;
-import ch.agent.t2.timeseries.TimeSeriesFactory;
 
 public class T042_SeriesValuesTest extends AbstractTest {
 
@@ -432,7 +432,7 @@ public class T042_SeriesValuesTest extends AbstractTest {
 	
 	private TimeAddressable<Double> makeTimeSeries() throws Exception {
 		TimeDomain domain = SERIES_DOMAIN;
-		TimeAddressable<Double> ts = TimeSeriesFactory.make(domain, Double.class);
+		TimeAddressable<Double> ts = new RegularTimeSeries<Double>(Double.class, domain);
 		ts.put(domain.time("2011-05-01"), 201105.01);
 		ts.put(domain.time("2011-06-01"), 201106.01);
 		ts.put(domain.time("2011-07-01"), 201107.01);
@@ -440,7 +440,7 @@ public class T042_SeriesValuesTest extends AbstractTest {
 	}
 	private TimeAddressable<Double> makeTimeSeries2() throws Exception {
 		TimeDomain domain = SERIES_DOMAIN;
-		TimeAddressable<Double> ts = TimeSeriesFactory.make(domain, Double.class);
+		TimeAddressable<Double> ts = new RegularTimeSeries<Double>(Double.class, domain);
 		ts.put(domain.time("2011-05-01"), 201105.01);
 		ts.put(domain.time("2011-05-02"), 201105.02);
 		ts.put(domain.time("2011-05-03"), 201105.03);

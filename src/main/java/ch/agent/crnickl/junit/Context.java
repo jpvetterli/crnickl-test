@@ -54,7 +54,7 @@ public class Context {
 	 * @param parameters
 	 *            configuration parameter
 	 * 
-	 * @throws Exception
+	 * @throws Exception on failure
 	 */
 	protected void setup(SimpleDatabaseManager dbm, Map<String, String> parameters) throws Exception {
 		setUpNumberType(dbm.getDatabase());

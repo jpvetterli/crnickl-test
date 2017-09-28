@@ -8,8 +8,8 @@ import ch.agent.crnickl.api.UpdatableSeries;
 import ch.agent.t2.time.Day;
 import ch.agent.t2.time.Range;
 import ch.agent.t2.time.TimeDomain;
+import ch.agent.t2.timeseries.RegularTimeSeries;
 import ch.agent.t2.timeseries.TimeAddressable;
-import ch.agent.t2.timeseries.TimeSeriesFactory;
 
 public class T041_UpdatableSeriesTest extends AbstractTest {
 
@@ -42,7 +42,7 @@ public class T041_UpdatableSeriesTest extends AbstractTest {
 		try {
 			TimeDomain dom = Day.DOMAIN;
 			UpdatableSeries<Double> s = db.getUpdatableSeries(SERIES, true).typeCheck(Double.class);
-			TimeAddressable<Double> ts = TimeSeriesFactory.make(dom, Double.class);
+			TimeAddressable<Double> ts = new RegularTimeSeries<Double>(Double.class, dom);
 			ts.put(dom.time("2011-05-01"),  201105.01);
 			ts.put(dom.time("2011-05-02"),  201105.02);
 			ts.put(dom.time("2011-06-01"),  201106.01);

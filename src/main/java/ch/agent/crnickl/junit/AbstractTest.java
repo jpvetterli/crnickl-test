@@ -46,7 +46,7 @@ public class AbstractTest extends TestCase {
 	 * So if you override <code>setUp</code>, you must call super.
 	 * By default the method does nothing.
 	 * 
-	 * @throws Exception
+	 * @throws Exception on failure
 	 */
 	protected void firstSetUp()  throws Exception {
 	}
@@ -56,7 +56,7 @@ public class AbstractTest extends TestCase {
 	 * So if you override <code>tearDown</code>, you must call super.
 	 * By default the method does nothing.
 	 * 
-	 * @throws Exception
+	 * @throws Exception on failure
 	 */
 	protected void lastTearDown()  throws Exception {
 	}
