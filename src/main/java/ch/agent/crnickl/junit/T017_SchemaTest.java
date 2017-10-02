@@ -16,9 +16,9 @@ import ch.agent.crnickl.api.UpdatableChronicle;
 import ch.agent.crnickl.api.UpdatableSchema;
 import ch.agent.crnickl.api.UpdatableSeries;
 import ch.agent.crnickl.api.UpdatableValueType;
-import ch.agent.t2.time.DateTime;
+import ch.agent.t2.applied.DateTime;
+import ch.agent.t2.applied.Workday;
 import ch.agent.t2.time.Day;
-import ch.agent.t2.time.Workday;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class T017_SchemaTest extends AbstractTest {
