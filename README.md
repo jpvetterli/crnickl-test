@@ -1,7 +1,7 @@
 crnickl-test : common test code for CrNiCKL drivers 
 ===================================================
 
-	Copyright 2012-2013 Hauser Olsson GmbH.
+	Copyright 2012-2017 Hauser Olsson GmbH.
 	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -21,6 +21,11 @@ This provides common test code for tests included in CrNiCKL
 drivers. Currently, drivers are available for JDBC (crnickl-jdbc)
 and MongoDB (crnickl-mongodb). Note that CrNiCKL itself (crnickl) 
 cannot be tested without using a driver.
+
+Version 2
+---------
+
+Some tests have been upgraded to the latest version of dependencies.
 
 For Maven users
 ---------------
@@ -51,15 +56,15 @@ is easy, as maven takes care of locating and downloading dependencies:
 Browsing the source code
 ------------------------
 
-The source is available on GitHub at 
-<http://github.com/jpvetterli/crnickl-test.git>.
+The source is available on [GitHub](http://github.com/jpvetterli/crnickl-test.git).
 
 Finding more information
 ------------------------
 
-More information on CrNiCKL is available at 
-<http://agent.ch/timeseries/crnickl/>.
-This README was updated on 2013-04-30 (jpv).
+More information on CrNiCKL is available at the [project web 
+site](http://agent.ch/timeseries/crnickl/).
+
+<small>Updated: 2017-10-06/jpv</small>
 
 <link rel="stylesheet" type="text/css" href="README.css"/>
 
